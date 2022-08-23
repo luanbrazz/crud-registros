@@ -29,4 +29,6 @@ public class HelloController {
         request.setAttribute("nome", "Luan");
         return "hello";  // o Spring vai renderizar o arquivo templates/hello.html
     }
+
+
 }
