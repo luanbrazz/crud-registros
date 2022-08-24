@@ -98,6 +98,30 @@ public class ProfessorController {
             System.out.println("****************** NÃO ACHOU O PROFESSOR DE ID " + id + "*******************");
             return new ModelAndView("redirect:/professores");
         }
+    }
 
+    @PostMapping("/{id}")
+    public ModelAndView update(@PathVariable Long id, @Valid RequisicaoFormProfessor requisicao, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            ModelAndView mv = new ModelAndView("professores/edit");
+            mv.addObject("professorId", id);
+            mv.addObject("listaStatusProfessor", StatusProfessor.values());
+            return mv;
+        }
+        else {
+            Optional<Professor> optional = this.professorRepository.findById(id);
+
+            if (optional.isPresent()) {
+                Professor professor = requisicao.toProfessor(optional.get());
+                this.professorRepository.save(professor);
+
+                return new ModelAndView("redirect:/professores/" + professor.getId());
+            }
+            // não achou um registro na tabela Professor com o id informado
+            else {
+                System.out.println("############ NÃO ACHOU O PROFESSOR DE ID "+ id + " ############");
+                return this.retornaErroProfessor("UPDATE ERROR: Professor #" + id + " não encontrado no banco!");
+            }
+        }
     }
 }
