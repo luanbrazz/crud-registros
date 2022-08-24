@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 // (Data Transfer Object) -> proteje contra inserções maliciosas no obj
-public class RequisicaoNovoProfessor {
+public class RequisicaoFormProfessor {
 
     @NotBlank
     @NotNull
@@ -52,6 +52,12 @@ public class RequisicaoNovoProfessor {
         professor.setStatusProfessor(this.statusProfessor);
 
         return professor;
+    }
+
+    public void fromProfessor(Professor professor){
+        this.nome = professor.getNome();
+        this.salario = professor.getSalario();
+        this.statusProfessor = professor.getStatusProfessor();
     }
 
     @Override
