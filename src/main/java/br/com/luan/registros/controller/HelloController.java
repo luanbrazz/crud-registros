@@ -17,7 +17,6 @@ public class HelloController {
         return mv;  // o Spring vai renderizar o arquivo templates/hello.html
     }
 
-
     @GetMapping("/hello-model")
     public String hello(Model model) {
         model.addAttribute("nome", "Zezinho!");
@@ -29,6 +28,4 @@ public class HelloController {
         request.setAttribute("nome", "Luan");
         return "hello";  // o Spring vai renderizar o arquivo templates/hello.html
     }
-
-
 }
